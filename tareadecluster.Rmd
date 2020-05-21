@@ -1,0 +1,43 @@
+```{r}
+library(htmltab)
+demolink = "https://en.wikipedia.org/wiki/Democracy_Index"
+demopath = '//*[@id="mw-content-text"]/div/table[2]/tbody'
+demo<- htmltab(doc = demolink, which =demopath)
+```
+
+
+```{r}
+library(stringr)
+library(magrittr)
+```
+
+
+```{r}
+names(demo)=str_split(names(demo),">>",simplify = T)[,1]%>%gsub('\\s','',.)
+```
+
+
+```{r}
+demo[,-c(1,8,9)]=lapply(demo[,-c(1,8,9)], trimws,whitespace = "[\\h\\v]") 
+```
+
+
+```{r}
+demo=demo[,-c(1)]
+```
+
+
+```{r}
+#esto no estaba en el resumen del profesor
+demo$Changesfromlastyear=gsub(".*\\:","",demo$Changesfromlastyear)
+
+#Para asi poder convertirlo en numérico y no toda esa columna se convierta en NA
+```
+
+```{r}
+demo[,-c(1,8,9)]=lapply(demo[,-c(1,8,9)], as.numeric)
+```
+
+```{r}
+str(demo)
+```

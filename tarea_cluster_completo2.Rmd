@@ -28,9 +28,10 @@ demo=demo[,-c(1)]
 
 
 ```{r}
+#esto no estaba en el resumen del profesor
 demo$Changesfromlastyear=gsub(".*\\:","",demo$Changesfromlastyear)
 
-#esto no estaba en el resumen del profesor
+#Para asi poder convertirlo en numérico y no toda esa columna se convierta en NA
 ```
 
 ```{r}
@@ -66,10 +67,6 @@ pam.resultado=pam(g.dist,4,cluster.only = F)
 demo$clusterPT=pam.resultado$cluster
 ```
 
-```{r}
-install.packages("plyr")
-```
-
 
 ```{r}
 library(plyr)
@@ -87,9 +84,6 @@ agg=aggregate(as.matrix(cbind(demo[,c(3:7)]))~ clusterPT, data=demo,FUN=plyr::ea
 tablaResumen=t(as.data.frame(agg))
 tablaResumen
 ```
-```{r}
-install.packages("kableExtra")
-```
 
 
 ```{r}
@@ -105,10 +99,6 @@ table(demo$clusterPT,demo$Regimetype,dnn = c('clusterPT','TipoEconomist'))
 
 ```{r}
 demo[demo$clusterPT==1 & demo$Regimetype=="Flawed democracy",'Country']
-```
-
-```{r}
-install.packages("factoextra")
 ```
 
 
