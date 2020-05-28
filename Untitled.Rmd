@@ -1,0 +1,19 @@
+```{r}
+library(htmltab)
+demolink = "https://en.wikipedia.org/wiki/Democracy_Index"
+demopath = '//*[@id="mw-content-text"]/div/table[2]/tbody'
+demo<- htmltab(doc = demolink, which =demopath)
+```
+
+
+```{r}
+library(stringr)
+library(magrittr)
+names(demo)=str_split(names(demo),">>",simplify = T)[,1]%>%gsub('\\s','',.)
+demo[,-c(1,8,9)]=lapply(demo[,-c(1,8,9)], trimws,whitespace = "[\\h\\v]") 
+```
+
+```{r}
+demo=demo[,-c(1)]
+```
+
